@@ -8,13 +8,13 @@ antora:
       solveButton: false
     - name: module-01
       label: "create-network-backup-job"
-      solveButton: true
+      solveButton: false
     - name: module-02
       label: "backup-job"
-      solveButton: true
+      solveButton: false
     - name: module-03
       label: "restore-network-automation"
-      solveButton: true
+      solveButton: false
 
 tabs:
   - name: "Ansible Automation Platform"
