@@ -246,4 +246,8 @@ connect_timeout = 200
 command_timeout = 200
 EOF
 
+# Work with old school Cisco SSH
+sudo su - -c "update-crypto-policies --set LEGACY"
+
+exit 0
 
