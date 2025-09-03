@@ -44,7 +44,7 @@ cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
         controller_host: "https://{{ aap_hostname }}"
-        validate_certs: "{{ aap_validate_certs }}" "
+        validate_certs: "{{ aap_validate_certs }}"
       register: job
 
 EOF
