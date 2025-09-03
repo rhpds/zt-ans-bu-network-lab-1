@@ -14,7 +14,7 @@ antora:
       solveButton: true
     - name: module-03
       label: "restore-network-automation"
-      solveButton: false
+      solveButton: true
 
 tabs:
   - name: "Ansible Automation Platform"
