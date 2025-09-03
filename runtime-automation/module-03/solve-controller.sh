@@ -37,7 +37,7 @@ cat > /tmp/setup-scripts/solve_challenege_3.yml << EOF
         validate_certs: "{{ aap_validate_certs }}" 
 
     - name: Launch Network Automation - Backup
-      awx.awx.job_launch:
+      ansible.controller.job_launch:
         job_template: "Network Automation - Backup"
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
