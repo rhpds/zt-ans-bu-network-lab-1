@@ -8,10 +8,10 @@ antora:
       solveButton: false
     - name: module-01
       label: "create-network-backup-job"
-      solveButton: false
+      solveButton: true
     - name: module-02
       label: "backup-job"
-      solveButton: false
+      solveButton: true
     - name: module-03
       label: "restore-network-automation"
       solveButton: false

@@ -2,16 +2,22 @@
 
 # ansible-playbook /tmp/setup-scripts/network-lab-1/solution_challenge_1.yml
 
-tee /home/rhel/solve_challenege_1.yml << EOF
+cat > /tmp/setup-scripts/solve_challenege_1.yml << EOF
 ---
 - name: solve challenge 1
   hosts: localhost
-  gather_facts: false
-  become: true
+  connection: local
+  collections:
+    - ansible.controller
+  vars:
+    aap_hostname: localhost
+    aap_username: admin
+    aap_password: ansible123!
+    aap_validate_certs: false
   tasks:
 
     - name: Create network backup job template
-      awx.awx.job_template:
+      ansible.controller.job_template:
         name: "Network Automation - Backup"
         job_type: "run"
         organization: "Default"
@@ -27,10 +33,10 @@ tee /home/rhel/solve_challenege_1.yml << EOF
           restore_project: "Network Toolkit"
           restores_playbook: "playbooks/network_restore.yml"
           restore_credential: "Network Credential"
-        controller_config_file: "/tmp/setup-scripts/controller.cfg"
+        controller_username: "{{ aap_username }}"
+        controller_password: "{{ aap_password }}"
+        controller_host: "https://{{ aap_hostname }}"
+        validate_certs: "{{ aap_validate_certs }}" 
 
 EOF
-
-sudo chown rhel:rhel /home/rhel/solve_challenege_1.yml
-
-su - rhel -c 'ansible-playbook /home/rhel/solve_challenege_1.yml'
+sudo su - -c "ANSIBLE_COLLECTIONS_PATH=/root/.ansible/collections/ansible_collections/ /usr/bin/ansible-playbook /tmp/setup-scripts/solve_challenege_1.yml"
