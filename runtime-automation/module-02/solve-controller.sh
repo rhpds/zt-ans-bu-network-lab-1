@@ -47,8 +47,5 @@ cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
         validate_certs: "{{ aap_validate_certs }}" "
       register: job
 
-
-EOF
-
 EOF
 sudo su - -c "ANSIBLE_COLLECTIONS_PATH=/root/.ansible/collections/ansible_collections/ /usr/bin/ansible-playbook /tmp/setup-scripts/solve_challenege_2.yml"
