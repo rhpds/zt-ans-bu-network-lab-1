@@ -3,8 +3,18 @@
 # ansible-playbook /tmp/setup-scripts/network-lab-1/solution_challenge_2.yml
 
 cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
----
-- name: solve challenge 2
+- name: solve challenge 1
+  hosts: localhost
+  connection: local
+  collections:
+    - ansible.controller
+  vars:
+    aap_hostname: localhost
+    aap_username: admin
+    aap_password: ansible123!
+    aap_validate_certs: false
+  tasks:
+- name: solve challenge 1
   hosts: localhost
   connection: local
   collections:
@@ -27,6 +37,7 @@ cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
         credentials:
           - "Network Credential"
           - "AAP controller credential"
+        execution_environment: "Default execution environment"
         state: "present"
         extra_vars:
           restore_inventory: "Network Inventory"
