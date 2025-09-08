@@ -77,7 +77,7 @@ cat > /tmp/setup-scripts/configure-controller.yml << EOF
         controller_host: "https://{{ aap_hostname }}"
         validate_certs: "{{ aap_validate_certs }}"     
         inputs:
-          host: "controller-{{ guid }}.{{ domain }}"
+          host: "controller"
           username: "admin"
           password: "ansible123!"
           verify_ssl: false
