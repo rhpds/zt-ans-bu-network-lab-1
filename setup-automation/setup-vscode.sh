@@ -9,13 +9,13 @@ systemctl stop firewalld
 systemctl stop code-server
 mv /home/rhel/.config/code-server/config.yaml /home/rhel/.config/code-server/config.bk.yaml
 
-su - $USER -c 'cat >/home/rhel/.config/code-server/config.yaml << EOF
+sudo su - -c 'cat >/home/rhel/.config/code-server/config.yaml << EOF
 bind-addr: 0.0.0.0:8080
 auth: none
 cert: false
 EOF'
 
-su - $USER -c 'cat >/home/$USER/.local/share/code-server/User/settings.json <<EOL
+sudo su - -c 'cat >/home/$USER/.local/share/code-server/User/settings.json <<EOL
 {
   "git.ignoreLegacyWarning": true,
   "window.menuBarVisibility": "visible",
@@ -48,7 +48,7 @@ systemctl start code-server
 # --------------------------------------------------------------
 # set ansible-navigator default settings
 # --------------------------------------------------------------
-su - $USER -c 'cat >/home/$USER/ansible-navigator.yml <<EOL
+sudo su - -c 'cat >/home/$USER/ansible-navigator.yml <<EOL
 ---
 ansible-navigator:
   ansible:
@@ -72,7 +72,7 @@ cat /home/$USER/ansible-navigator.yml'
 # --------------------------------------------------------------
 # create inventory hosts file
 # --------------------------------------------------------------
-su - $USER -c 'cat > /home/rhel/hosts << EOF
+sudo su - -c 'cat > /home/rhel/hosts << EOF
 cisco ansible_connection=network_cli ansible_network_os=ios ansible_become=true ansible_user=admin ansible_password=ansible123!
 vscode ansible_user=rhel ansible_password=ansible123!
 EOF
@@ -81,7 +81,7 @@ cat  /home/rhel/hosts'
 # --------------------------------------------------------------
 # create ansible.cfg
 # --------------------------------------------------------------
-su - $USER -c 'cat > /home/rhel/ansible.cfg << EOF
+sudo su - -c 'cat > /home/rhel/ansible.cfg << EOF
 [defaults]
 # stdout_callback = yaml
 connection = smart
@@ -104,16 +104,16 @@ cat /home/rhel/ansible.cfg'
 # set environment
 # --------------------------------------------------------------
 # Fixes an issue with podman that produces this error: "Error: error creating tmpdir: mkdir /run/user/1000: permission denied"
-su - $USER -c 'loginctl enable-linger $USER'
+sudo su - -c 'loginctl enable-linger $USER'
 
 # Creates playbook artifacts dir
-su - $USER -c 'mkdir /home/$USER/playbook-artifacts'
+sudo su - -c 'mkdir /home/$USER/playbook-artifacts'
 
 # --------------------------------------------------------------
 # configure ssh
 # --------------------------------------------------------------
-su - $USER -c 'mkdir /home/$USER/.ssh'
-su - $USER -c 'cat >/home/rhel/.ssh/config << EOF
+sudo su - -c 'mkdir /home/$USER/.ssh'
+sudo su - -c 'cat >/home/rhel/.ssh/config << EOF
 Host *
      StrictHostKeyChecking no
      User ansible
