@@ -1,19 +1,15 @@
-:lab_name: Network automation: Backup and restore
+=  {lab_name}
+
+Learn how to perform network configurations and backups using Red Hat Ansible
 
 
-= image:https://github.com/network-automation/networking-icons/blob/master/switches/switch_red_small.png?raw=true[] {lab_name}
+== Overview
 
-== Learn how to perform network configurations and backups using Red Hat Ansible
-
-
-=== Overview
-
-We know that network backup and restores are fairly uninteresting in the grand scheme of things, but they are a very common and ubiquitous use-case that all network operators will need. This provides an easy turn key use-case for network engineers to start their automation journey.
-
-
+* We know that network backup and restores are fairly uninteresting in the grand scheme of things, but they are a very common and ubiquitous use-case that all network operators will need. This provides an easy turn key use-case for network engineers to start their automation journey.
++
 image::https://github.com/IPvSean/pictures_for_github/blob/master/lab1-overview.png?raw=true[]
 
-=== First steps towards network as code
+== First steps towards network as code
 
-When network operators realize a simple playbook, that is just a few lines of YAML, can be run from their laptop across hundreds of routers and switches, they will get hooked on automation and see infinite possibilities.
+* When network operators realize a simple playbook, that is just a few lines of YAML, can be run from their laptop across hundreds of routers and switches, they will get hooked on automation and see infinite possibilities.
 

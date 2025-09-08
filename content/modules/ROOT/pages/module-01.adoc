@@ -1,101 +1,97 @@
 = Create a backup automation job template
 
-== Lab 1 - Challenge 1
+Learn how to create a backup job template in automation*
 
-*Learn how to create a backup job template in automation*
+== Lab 1 - Config Backup and Restore
 
-=== Lab 1 - Config Backup and Restore
+* This lab will walk you through using Automation controller to automate backup and restore the configuration of a Cisco CSR (cloud services router) running IOS-XE.
 
-This lab will walk you through using Automation controller to automate backup and restore the configuration of a Cisco CSR (cloud services router) running IOS-XE.
+// Please click the Green Start button image:https://github.com/IPvSean/pictures_for_github/blob/master/start_button.png?raw=true[width=100px,align=left] on the bottom right corner if it did not already start provisioning.
 
-Please click the Green Start button image:https://github.com/IPvSean/pictures_for_github/blob/master/start_button.png?raw=true[width=100px,align=left] on the bottom right corner if it did not already start provisioning.
+== Lab Diagram
 
-=== Lab Diagram
-
-The lab diagram for this demonstration is very simple.  There will be one Red Hat Enterprise Linux 8 device running automation controller.  It is directly connected to the management network for a Cisco CSR (cloud services router) running IOS-XE.
-
+* The lab diagram for this demonstration is very simple.  There will be one Red Hat Enterprise Linux 8 device running automation controller.  It is directly connected to the management network for a Cisco CSR (cloud services router) running IOS-XE.
++
 image::https://github.com/IPvSean/pictures_for_github/blob/master/lab1-topo.png?raw=true[width=400,align=center]
 
-=== Quick Automation Victories
+== Quick Automation Victories
 
-We know that network backup and restores are fairly uninteresting in the grand scheme of things, but they are a very common and ubiquitous use-case that all network operators will need. This provides an easy turn key use-case for network engineers to start their automation journey.
+* We know that network backup and restores are fairly uninteresting in the grand scheme of things, but they are a very common and ubiquitous use-case that all network operators will need. This provides an easy turn key use-case for network engineers to start their automation journey.
 
-=== Automation controller
+== Automation controller
 
-Automation controller provides a standardized way to define, operate, and delegate Ansible automation across the enterprise. It includes a Web User Interface (WebUI) that we will be using for this challenge.
+* Automation controller provides a standardized way to define, operate, and delegate Ansible automation across the enterprise. It includes a Web User Interface (WebUI) that we will be using for this challenge.
 
-=== Job Templates
+== Job Templates
 
-Everything in Automation controller revolves around the concept of a *Job Template*.  Job Templates allow Ansible Playbooks to be controlled, delegated and scaled for an organization.
-
+* Everything in Automation controller revolves around the concept of a *Job Template*.  Job Templates allow Ansible Playbooks to be controlled, delegated and scaled for an organization.
++
 Job templates also encourage the reuse of Ansible Playbook content and collaboration between teams.
++
+*A Job Template requires:*
++
+** An *Inventory* to run the job against
+** A *Credential* to login to devices.
+** A *Project* which contains Ansible Playbooks
 
-A Job Template requires:
-- An *Inventory* to run the job against
-- A *Credential* to login to devices.
-- A *Project* which contains Ansible Playbooks
+== Challenge 1 - Creating a backup Job Template
 
-=== Challenge 1 - Creating a backup Job Template
+* For this challenge exercise you are going to create a Job Template in Automation controller.  We are going to use the Network Toolkit Collection (https://github.com/network-automation/toolkit) that contains multi-vendor playbooks for Backup, restore and more.
 
-For this challenge exercise you are going to create a Job Template in Automation controller.  We are going to use the Network Toolkit Collection (https://github.com/network-automation/toolkit) that contains multi-vendor playbooks for Backup, restore and more.
+* The *credentials* (username and password), *inventory* (a single Cisco router) and *project* (the network toolkit repository listed above) are already added.  We simply need to tie them together into a simple re-usable Job Template for our organization to use.
 
-The *credentials* (username and password), *inventory* (a single Cisco router) and *project* (the network toolkit repository listed above) are already added.  We simply need to tie them together into a simple re-usable Job Template for our organization to use.
-
-=== Lets get started
+== Lets get started
 
 That is the end of of your lab briefing!
 
-Once the lab is setup you can click the Green start button image:https://github.com/IPvSean/pictures_for_github/blob/master/start_button.png?raw=true[width=100px,align=left] in the bottom right corner of this window.
+// Once the lab is setup you can click the Green start button image:https://github.com/IPvSean/pictures_for_github/blob/master/start_button.png?raw=true[width=100px,align=left] in the bottom right corner of this window.
 
 For this exercise we are going to create an automation job on Automation controller
 
 === Login to automation controller
 
-To login to automation controller select the `Automation controller WebUI` tab at the top of your screen.
-
+* To login to automation controller select the `Automation controller WebUI` tab at the top of your screen.
++
 Login with the following credentials:
-
-username: `admin` +
-password: `ansible123!`
++
+[%autowidth.stretch,width=70%,cols="^.^a,^.^a"]
+|===
+| username | admin
+| password | ansible123!
+|===
 
 === Step 1 - Create an automation job
 
-- Navigate to *Job Templates* by clicking on *Templates* found under Resources on the left navigation menu. image:https://github.com/IPvSean/pictures_for_github/blob/master/job_templates.png?raw=true[]
-- You will see a list of *Job Templates*.  Job templates encourage the reuse of Ansible playbook content and collaboration between teams.
-- Click the blue Add button and select *Add job template*
-- Assign the following values
+* In the left navigation menu, expand *Automation Execution* and then click on *Templates*.
++
+image:https://github.com/IPvSean/pictures_for_github/blob/master/job_templates.png?raw=true[]
 
+* You will see a list of *Job Templates*.  Job templates encourage the reuse of Ansible playbook content and collaboration between teams.
+
+* Click the blue Add button and select *Create job template*
+
+* Assign the following values
++
+[%autowidth.stretch,width=70%,cols="^.^a,^.^a",options="header"]
 |===
-|Name |Value
+|Name                 | Value
 
-|Name
-|`Network Automation - Backup`
-
-|Job Type
-|`Run`
-
-|Inventory
-|`Network Inventory`
-
-|Project
-|`Network Toolkit`
-
-|Execution Environment
-|`Default execution environment`
-
-|Playbook
-|`playbooks/network_backup.yml`
-
-|Credentials +
-*NOTE:* there are two credentials
-|* `Network Credential`
-* `AAP controller credential`
+|Name                 | Network Automation - Backup
+|Job Type             | Run
+|Inventory            | Network Inventory
+|Project              | Network Toolkit
+|Execution Environment|Default execution environment
+|Playbook             | playbooks/network_backup.yml
+|Credentials *NOTE:* there are two credentials
+                      |   * Network Credential
+                          * `AAP controller credential`
 |===
 
-To find the `AAP controller credential` change the *Selected Category* to `Red Hat Ansible Automation Platform`
++
+IMPORTANT: To find the `AAP controller credential` change the *Selected Category* to `Red Hat Ansible Automation Platform`
 
-- Click the blue *Save* button to save your job template.
+* Click the *Create job template* button to save your job template.
 
 === Step 2 - Verify
 
-Click the Green `Check` button below to verify the job template was created.
+Click the Next button below to verify the job template was created.
