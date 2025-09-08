@@ -25,7 +25,6 @@ cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
     aap_password: ansible123!
     aap_validate_certs: false
   tasks:
-
     - name: Create network backup job template
       ansible.controller.job_template:
         name: "Network Automation - Backup"
