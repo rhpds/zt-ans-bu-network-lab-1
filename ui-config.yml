@@ -17,7 +17,7 @@ antora:
       solveButton: true
 
 tabs:
-  - name: "Ansible Automation Platform"
+  - name: "Automation controller WebUI"
     url: https://controller-${guid}.${domain}/
     external: false
   - name: "TERMINAL"
