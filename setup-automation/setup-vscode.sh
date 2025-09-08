@@ -5,17 +5,17 @@ USER=rhel
 # --------------------------------------------------------------
 # Reconfigure code-server
 # --------------------------------------------------------------
-systemctl stop firewalld
-systemctl stop code-server
+sudo su - -c 'systemctl stop firewalld'
+sudo su - -c 'systemctl stop code-server'
 mv /home/rhel/.config/code-server/config.yaml /home/rhel/.config/code-server/config.bk.yaml
 
-sudo su - -c 'cat >/home/rhel/.config/code-server/config.yaml << EOF
+cat >/home/rhel/.config/code-server/config.yaml << EOF
 bind-addr: 0.0.0.0:8080
 auth: none
 cert: false
-EOF'
+EOF
 
-sudo su - -c 'cat >/home/$USER/.local/share/code-server/User/settings.json <<EOL
+cat >/home/$USER/.local/share/code-server/User/settings.json <<EOL
 {
   "git.ignoreLegacyWarning": true,
   "window.menuBarVisibility": "visible",
@@ -40,48 +40,48 @@ sudo su - -c 'cat >/home/$USER/.local/share/code-server/User/settings.json <<EOL
   "security.workspace.trust.enabled": false
 }
 EOL
-cat /home/$USER/.local/share/code-server/User/settings.json'
+cat /home/$USER/.local/share/code-server/User/settings.json
 
-systemctl start code-server
+sudo su - -c 'systemctl start code-server'
 
 
 # --------------------------------------------------------------
 # set ansible-navigator default settings
 # --------------------------------------------------------------
-sudo su - -c 'cat >/home/$USER/ansible-navigator.yml <<EOL
+cat >/home/$USER/ansible-navigator.yml <<EOL
 ---
 ansible-navigator:
   ansible:
-    inventory:
-      entries:
-        - /home/rhel/hosts
+    inventories:
+    - /home/$USER/hosts
   execution-environment:
     container-engine: podman
-    enabled: true
-    image: ee-supported-rhel8
-    pull:
-      policy: never
+    image: quay.io/acme_corp/network-ee
+    enabled: True
+    pull-policy: never
+
+  playbook-artifact:
+    save-as: /home/rhel/playbook-artifacts/{playbook_name}-artifact-{ts_utc}.json
+
   logging:
     level: debug
-  playbook-artifact:
-    save-as: /home/rhel/playbook-artifacts/{playbook_name}-artifact-{time_stamp}.json
 
 EOL
-cat /home/$USER/ansible-navigator.yml'
+cat /home/$USER/ansible-navigator.yml
 
 # --------------------------------------------------------------
 # create inventory hosts file
 # --------------------------------------------------------------
-sudo su - -c 'cat > /home/rhel/hosts << EOF
+cat > /home/rhel/hosts << EOF
 cisco ansible_connection=network_cli ansible_network_os=ios ansible_become=true ansible_user=admin ansible_password=ansible123!
 vscode ansible_user=rhel ansible_password=ansible123!
 EOF
-cat  /home/rhel/hosts'
+cat  /home/rhel/hosts
 
 # --------------------------------------------------------------
 # create ansible.cfg
 # --------------------------------------------------------------
-sudo su - -c 'cat > /home/rhel/ansible.cfg << EOF
+cat > /home/rhel/ansible.cfg << EOF
 [defaults]
 # stdout_callback = yaml
 connection = smart
@@ -97,7 +97,7 @@ interpreter_python = auto_silent
 connect_timeout = 200
 command_timeout = 200
 EOF
-cat /home/rhel/ansible.cfg'
+cat /home/rhel/ansible.cfg
 
 
 # --------------------------------------------------------------
@@ -107,18 +107,18 @@ cat /home/rhel/ansible.cfg'
 sudo su - -c 'loginctl enable-linger $USER'
 
 # Creates playbook artifacts dir
-sudo su - -c 'mkdir /home/$USER/playbook-artifacts'
+mkdir /home/$USER/playbook-artifacts
 
 # --------------------------------------------------------------
 # configure ssh
 # --------------------------------------------------------------
-sudo su - -c 'mkdir /home/$USER/.ssh'
-sudo su - -c 'cat >/home/rhel/.ssh/config << EOF
+mkdir /home/$USER/.ssh
+cat >/home/rhel/.ssh/config << EOF
 Host *
      StrictHostKeyChecking no
      User ansible
 EOF
-cat /home/rhel/.ssh/config'
+cat /home/rhel/.ssh/config
 
 
 exit 0

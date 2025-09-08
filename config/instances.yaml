@@ -77,7 +77,6 @@ virtualmachines:
         value: "isolated"
     networks:
       - default
-      - controller
     userdata: |-
       #cloud-config
       user: rhel

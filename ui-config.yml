@@ -21,7 +21,7 @@ tabs:
     url: https://controller-${guid}.${domain}/
     external: false
   - name: "TERMINAL"
-    url: /wetty_controller
+    url: /wetty_vscode
   - name: "code-server"
     url: https://vscode-${guid}.${domain}/?folder=/home/rhel
     external: false

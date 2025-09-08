@@ -148,10 +148,10 @@ cat > /tmp/setup-scripts/configure-controller.yml << EOF
         validate_certs: "{{ aap_validate_certs }}" 
         variables:
             note: in production these passwords would be encrypted in vault
-            ansible_host: "{{ ansible_default_ipv4.address }}"
+            ansible_host: vscode
             ansible_user: rhel
             ansible_password: ansible123!
-            ansible_become_password: ansible123!
+            # ansible_become_password: ansible123!
 
     - name: Add group
       ansible.controller.group:
@@ -169,85 +169,6 @@ cat > /tmp/setup-scripts/configure-controller.yml << EOF
 EOF
 cat /tmp/setup-scripts/configure-controller.yml
 sudo su - -c "ANSIBLE_COLLECTIONS_PATH=/root/.ansible/collections/ansible_collections/ /usr/bin/ansible-playbook /tmp/setup-scripts/configure-controller.yml"
-
-# --------------------------------------------------------------
-# set ansible-navigator default settings
-# --------------------------------------------------------------
-cat >/home/$USER/ansible-navigator.yml <<EOL
----
-ansible-navigator:
-  ansible:
-    inventories:
-    - /home/$USER/hosts
-  execution-environment:
-    container-engine: podman
-    image: quay.io/acme_corp/network-ee
-    enabled: True
-    pull-policy: never
-
-  playbook-artifact:
-    save-as: /home/rhel/playbook-artifacts/{playbook_name}-artifact-{ts_utc}.json
-
-  logging:
-    level: debug
-
-EOL
-cat /home/$USER/ansible-navigator.yml
-
-# --------------------------------------------------------------
-# create inventory hosts file
-# --------------------------------------------------------------
-cat > /home/rhel/hosts << EOF
-cisco ansible_connection=network_cli ansible_network_os=ios ansible_become=true ansible_user=admin ansible_password=ansible123!
-vscode ansible_user=rhel ansible_password=ansible123!
-EOF
-cat  /home/rhel/hosts
-
-# --------------------------------------------------------------
-# set environment
-# --------------------------------------------------------------
-# Fixes an issue with podman that produces this error: "Error: error creating tmpdir: mkdir /run/user/1000: permission denied"
-loginctl enable-linger $USER
-
-# Creates playbook artifacts dir
-mkdir /home/$USER/playbook-artifacts
-
-
-# --------------------------------------------------------------
-# configure ssh
-# --------------------------------------------------------------
-# Creates ssh dir
-mkdir /home/$USER/.ssh
-
-tee /home/rhel/.ssh/config << EOF
-Host *
-     StrictHostKeyChecking no
-     User ansible
-EOF
-
-
-# --------------------------------------------------------------
-# create ansible.cfg
-# --------------------------------------------------------------
-tee /home/rhel/ansible.cfg << EOF
-[defaults]
-# stdout_callback = yaml
-connection = smart
-timeout = 60
-deprecation_warnings = False
-action_warnings = False
-system_warnings = False
-host_key_checking = False
-collections_on_ansible_version_mismatch = ignore
-retry_files_enabled = False
-interpreter_python = auto_silent
-[persistent_connection]
-connect_timeout = 200
-command_timeout = 200
-EOF
-
-# Work with old school Cisco SSH
-sudo su - -c "update-crypto-policies --set LEGACY"
 
 exit 0
 
