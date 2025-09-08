@@ -27,12 +27,8 @@ cat > /tmp/setup-scripts/solve_challenege_1.yml << EOF
         credentials:
           - "Network Credential"
           - "AAP controller credential"
+        execution_environment: "Default execution environment"
         state: "present"
-        extra_vars:
-          restore_inventory: "Network Inventory"
-          restore_project: "Network Toolkit"
-          restores_playbook: "playbooks/network_restore.yml"
-          restore_credential: "Network Credential"
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
         controller_host: "https://{{ aap_hostname }}"
