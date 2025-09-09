@@ -28,7 +28,7 @@ EOF
 # --------------------------------------------------------------
 # Setup lab assets
 # --------------------------------------------------------------
-cat > /tmp/setup-scripts/configure-controller.yml << EOF
+tee > /tmp/setup-scripts/configure-controller.yml << EOF
 ---
 - name: Setup Controller 
   hosts: localhost
@@ -77,7 +77,7 @@ cat > /tmp/setup-scripts/configure-controller.yml << EOF
         controller_host: "https://{{ aap_hostname }}"
         validate_certs: "{{ aap_validate_certs }}"     
         inputs:
-          host: "controller"
+          host: "controller-${GUID}.${DOMAIN}"
           username: "admin"
           password: "ansible123!"
           verify_ssl: false
