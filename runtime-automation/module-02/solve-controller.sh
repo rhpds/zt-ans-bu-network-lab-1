@@ -3,7 +3,7 @@
 # ansible-playbook /tmp/setup-scripts/network-lab-1/solution_challenge_2.yml
 
 cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
-- name: solve challenge 1
+- name: solve challenge 2
   hosts: localhost
   connection: local
   collections:
