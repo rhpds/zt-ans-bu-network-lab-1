@@ -29,4 +29,5 @@ tabs:
     url: https://vscode-${guid}.${domain}/?folder=/home/rhel
     external: false
     modules:
+      - module-02
       - module-03
