@@ -4,6 +4,7 @@ cat > /tmp/setup-scripts/solve_challenege_3.yml << EOF
 - name: solve challenge 3
   hosts: localhost
   connection: local
+  gather_facts: false
   collections:
     - ansible.controller
   vars:
