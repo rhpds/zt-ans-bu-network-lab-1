@@ -21,6 +21,7 @@ tabs:
     url: https://controller-${guid}.${domain}/
     external: false
     modules:
+      - index
       - module-01
       - module-02
       - module-03
