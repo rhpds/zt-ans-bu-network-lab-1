@@ -59,16 +59,14 @@ Login with the following credentials:
 === Step 1 - Execute Network Automation - Backup Job Template
 
 * In the left navigation menu, expand *Automation Execution* and then click on *Templates*. 
-+
-image:https://github.com/IPvSean/pictures_for_github/blob/master/job_templates.png?raw=true[]
 
-* To execute the *Network Automation - Backup Job Template* click the rocket button which incidates the launch job button:
+* To execute the *Network Automation - Backup* Job Template click the rocket button which incidates the launch job button:
 +
 image::https://github.com/IPvSean/pictures_for_github/blob/master/launch_job.png?raw=true[]
 
 === Step 2 - Optional - Verify Backup
 
-* In the Visual Studio Code tab you can open the backup configuration.  Open the `/backup` directory with Visual Studio Code and navigate to the most recent timestamp.  If you have executed the job more than one time you will have multiple options.  Open the `cisco.txt` file to reveal the Cisco IOS-XE running configuration.
+* In the *Visual Studio Code* tab you can open the backup configuration.  Open the `/backup` directory with Visual Studio Code and navigate to the most recent timestamp.  If you have executed the job more than one time you will have multiple options.  Open the `cisco.txt` file to reveal the Cisco IOS-XE running configuration.
 
 === Step 3 - Verify
 

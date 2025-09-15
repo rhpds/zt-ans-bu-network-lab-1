@@ -20,8 +20,12 @@ tabs:
   - name: "Automation controller WebUI"
     url: https://controller-${guid}.${domain}/
     external: false
-  - name: "TERMINAL"
-    url: /wetty_vscode
-  - name: "code-server"
+    modules:
+      - module-01
+      - module-02
+      - module-03
+  - name: "Visual Studio Code"
     url: https://vscode-${guid}.${domain}/?folder=/home/rhel
     external: false
+    modules:
+      - module-03
