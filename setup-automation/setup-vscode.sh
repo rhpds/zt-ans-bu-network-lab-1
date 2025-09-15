@@ -13,6 +13,7 @@ cat >/home/rhel/.config/code-server/config.yaml << EOF
 bind-addr: 0.0.0.0:8080
 auth: none
 cert: false
+disable-update-check: true
 EOF
 
 cat >/home/$USER/.local/share/code-server/User/settings.json <<EOL
@@ -37,7 +38,20 @@ cat >/home/$USER/.local/share/code-server/User/settings.json <<EOL
   "files.exclude": {
     "**/.*": true
   },
-  "security.workspace.trust.enabled": false
+  "files.watcherExclude": {
+    "**": true
+  },
+  "files.watcherExclude": {
+    "**": true
+  },
+  "security.workspace.trust.enabled": false,
+  "redhat.telemetry.enabled": false,
+  "ansibleLint.enabled": false,
+  "ansible.validation.lint.enabled": false,
+  "ansible.validation.enabled": false,
+  "ansible.lightspeed.enabled": false,
+  "ansible.lightspeed.suggestions.enabled": false
+  "python.useEnvironmentsExtension": false
 }
 EOL
 cat /home/$USER/.local/share/code-server/User/settings.json
