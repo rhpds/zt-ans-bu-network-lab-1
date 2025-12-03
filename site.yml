@@ -2,7 +2,7 @@
 site:
   title: "Network automation: Backup and restore"
   url: https://redhat-scholars.github.io/course-template
-  start_page: modules::index.adoc
+  start_page: modules::module-01.adoc
 
 asciidoc:
   attributes:
