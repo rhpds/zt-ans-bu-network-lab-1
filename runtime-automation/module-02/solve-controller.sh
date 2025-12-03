@@ -1,19 +1,9 @@
 #!/bin/bash
 
-# ansible-playbook /tmp/setup-scripts/network-lab-1/solution_challenge_2.yml
+# ansible-playbook /tmp/setup-scripts/network-lab-1/solution_challenge_1.yml
 
-cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
-- name: solve challenge 2
-  hosts: localhost
-  connection: local
-  collections:
-    - ansible.controller
-  vars:
-    aap_hostname: localhost
-    aap_username: admin
-    aap_password: ansible123!
-    aap_validate_certs: false
-  tasks:
+cat > /tmp/setup-scripts/solve_challenege_1.yml << EOF
+---
 - name: solve challenge 1
   hosts: localhost
   connection: local
@@ -25,6 +15,7 @@ cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
     aap_password: ansible123!
     aap_validate_certs: false
   tasks:
+
     - name: Create network backup job template
       ansible.controller.job_template:
         name: "Network Automation - Backup"
@@ -48,14 +39,5 @@ cat > /tmp/setup-scripts/solve_challenege_2.yml << EOF
         controller_host: "https://{{ aap_hostname }}"
         validate_certs: "{{ aap_validate_certs }}" 
 
-    - name: Launch Network Automation - Backup
-      ansible.controller.job_launch:
-        job_template: "Network Automation - Backup"
-        controller_username: "{{ aap_username }}"
-        controller_password: "{{ aap_password }}"
-        controller_host: "https://{{ aap_hostname }}"
-        validate_certs: "{{ aap_validate_certs }}"
-      register: job
-
 EOF
-sudo su - -c "ANSIBLE_COLLECTIONS_PATH=/root/.ansible/collections/ansible_collections/ /usr/bin/ansible-playbook /tmp/setup-scripts/solve_challenege_2.yml"
+sudo su - -c "ANSIBLE_COLLECTIONS_PATH=/root/.ansible/collections/ansible_collections/ /usr/bin/ansible-playbook /tmp/setup-scripts/solve_challenege_1.yml"

@@ -1,30 +1,39 @@
-= Run a network restore automation job
+= Run a network backup automation job
 
-Running a network restore job
-
-== Challenge 3 - Running the restore automation job
-
-* This challenge will walk you through using Automation controller to execute the restore job you created on the 1st challenge.
-
-// Please click the Green Start button image:https://github.com/IPvSean/pictures_for_github/blob/master/start_button.png?raw=true[width=100px,align=left] on the bottom right corner if it did not already start provisioning.
+Learning to run a job in automation controller
 
 
-== How it works
+== Challenge 2 - Running the backup automation job
 
-* Network operator will execute the `Network Automation - Backup` job like we did in the last challenge
-* The automation job will retrieve the configuration from the Cisco IOS router.
-* The automation job will then store it on a specified `backup-server`
-* Finally, The automation job will automatically create the `Network Automation - Restore` Job Template and populate all available backups for a Network Operator to choose via a Survey
+* This challenge will walk you through using Automation controller to execute the backup job you created on the 1st challenge.
+
+
+== Ansible Collections
+
+* Ansible provides automation content in the form of collections.  An Ansible Collection contains modules, plugins and roles that a network engineer can use to build and customize their automation.
 +
-We can actually automate Automation controller with simple tasks using the `ansible.controller` Ansible Collection.
-
-* How it works: Animation
+If you need a quick primer on what an Ansible Collection is, please refer to this https://www.youtube.com/watch?v=WOcqhk7TdYc&t=69s[YouTube Video here].
 +
-image::https://github.com/IPvSean/pictures_for_github/blob/master/network-backup.gif?raw=true[align=center]
+video::WOcqhk7TdYc[youtube,560,315]
 
-== Surveys
+== The Cisco IOS collection
 
-* Surveys set extra variables for the playbook similar to 'Prompt for Extra Variables' does, but in a user-friendly question and answer way. Surveys also allow for validation of user input.
+* For this demonstration we are going to automate against a Cisco IOS-XE router.  We need to use the Cisco IOS collection.
++
+The FQCN (or fully qualified collection name) to use a module is: `namespace.collection.module`
++
+So for our example it is: `cisco.ios.<module name>`
+
++
+The task is this simple:
++
+[source,yaml]
+----
+- name: backup cisco ios configuration
+  cisco.ios.config:
+    backup: true
+  register: config_output
+----
 
 == Lets get started
 
@@ -32,7 +41,7 @@ That is the end of of your lab briefing!
 
 // Once the lab is setup you can click the Green start button image:https://github.com/IPvSean/pictures_for_github/blob/master/start_button.png?raw=true[width=100px,align=left] in the bottom right corner of this window.
 
-For this exercise we are going to run the network restore automation job
+For this exercise we are going to run the automation job on Automation controller
 
 === Login to automation controller
 
@@ -47,15 +56,18 @@ Login with the following credentials:
 | password | ansible123!
 |===
 
-
-=== Step 1 - Execute Network Automation - Restore Job Template
+=== Step 1 - Execute Network Automation - Backup Job Template
 
 * In the left navigation menu, expand *Automation Execution* and then click on *Templates*. 
 
-* To execute the *Network Automation - Restore Job Template* click the rocket button which incidates the launch job button:
+* To execute the *Network Automation - Backup* Job Template click the rocket button which incidates the launch job button:
 +
 image::https://github.com/IPvSean/pictures_for_github/blob/master/launch_job.png?raw=true[]
 
-=== Step 2 - Verify
+=== Step 2 - Optional - Verify Backup
+
+* In the *Visual Studio Code* tab you can open the backup configuration.  Open the `/backup` directory with Visual Studio Code and navigate to the most recent timestamp.  If you have executed the job more than one time you will have multiple options.  Open the `cisco.txt` file to reveal the Cisco IOS-XE running configuration.
+
+=== Step 3 - Verify
 
 Click the Next button below to verify the job executed.

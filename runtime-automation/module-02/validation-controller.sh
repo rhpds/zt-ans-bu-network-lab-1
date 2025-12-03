@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cat >/tmp/setup-scripts/check_challenege_2.yml << EOF
+
+cat >/tmp/setup-scripts/check_challenege_1.yml << EOF
 ---
 - name: setup controller for network use cases
   hosts: localhost
@@ -37,35 +38,11 @@ cat >/tmp/setup-scripts/check_challenege_2.yml << EOF
         msg: "Job template 'Network Automation - Backup' does not exist in Automation Controller!"
       when: "'Network Automation - Backup' not in template_names"
 
-    - name: Fail template Network Automation - Restore is not found
-      fail:
-        msg: "Job template 'Network Automation - Restore' does not exist in Automation Controller!"
-      when: "'Network Automation - Restore' not in template_names"
-
-    - name: Get job templates from Automation Controller
-      uri:
-        url: https://{{ aap_hostname }}/api/controller/v2/jobs/
-        method: GET
-        validate_certs: "{{ aap_validate_certs }}"
-        user: "{{ aap_username }}"
-        password: "{{ aap_password}}"
-        force_basic_auth: yes
-      register: jobs
-
-    - name: Extract job names
-      set_fact:
-        job_names: "{{ jobs.json.results | map(attribute='name') | list }}"
-
-    - name: Fail Job Network Automation - Backup is not found
-      fail:
-        msg: "Job template 'Network Automation - Backup' does not exist in Automation Controller!"
-      when: "'Network Automation - Backup' not in job_names"
-
 EOF
 
-/usr/bin/ansible-playbook /tmp/setup-scripts/check_challenege_2.yml
+/usr/bin/ansible-playbook /tmp/setup-scripts/check_challenege_1.yml
 
 if [ $? -ne 0 ]; then
-    echo "You have not launched the 'Network Automation - Backup' job template"
+    echo "You have not created the 'Network Automation - Backup' job template"
     exit 1
 fi
