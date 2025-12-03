@@ -5,7 +5,6 @@ antora:
   modules:
     - name: module-01
       label: "Introduction"
-      solveButton: false
     - name: module-02
       label: "create-network-backup-job"
       solveButton: true
