@@ -85,7 +85,7 @@ tee > /tmp/setup-scripts/configure-controller.yml << EOF
     - name: Add project
       ansible.controller.project:
         name: "Network Toolkit"
-        scm_url: "https://github.com/network-automation/toolkit"
+        scm_url: "https://github.com/abwalczyk/toolkit"
         scm_type: git
         organization: "Default"
         scm_update_on_launch: False
