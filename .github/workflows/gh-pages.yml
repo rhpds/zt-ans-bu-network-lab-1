@@ -3,7 +3,7 @@ name: github pages
 on:
   workflow_dispatch:
   push:
-    branches: ['v0.0.*']
+    branches: ['v*.*.*']
     paths-ignore:
       - "README.adoc"
       - ".gitignore"
